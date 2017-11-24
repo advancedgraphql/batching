@@ -28,10 +28,13 @@ const resolvers = {
       // }
       // return users
       
+      // Smart implementation (verbose): Batch all calls using DataLoader
+      // return Promise.all(args.ids.map(id => {
+      //   return context.dataloader.load(id) // batch calls
+      // }))
+
       // Smart implementation: Batch all calls using DataLoader
-      return Promise.all(args.ids.map(id => {
-        return context.dataloader.load(id) // batch calls
-      }))
+      return context.dataloader.loadMany(args.ids)
     }
   }
 }
